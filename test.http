@@ -1,0 +1,7 @@
+POST http://192.168.1.198:5000/api/auth/login
+Content-Type: application/json
+
+{
+    "email": "gstephane138@gmail.com",
+    "password": "helloworld"
+}
