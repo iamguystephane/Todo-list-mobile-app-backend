@@ -23,7 +23,6 @@ router.post("/signup", async (req, res) => {
     return res.status(501).json({ message: "Internal server error" });
   }
 });
-
 router.post("/auth/login", async (req, res) => {
   try {
     const formData = req.body;
@@ -38,9 +37,13 @@ router.post("/auth/login", async (req, res) => {
     if (!comparePasswords) {
       return res.status(405).json({ message: "Incorrect password" });
     }
-    const token = jwt.sign({ userId: existingUser._id }, process.env.JWT_SECRET, {
-      expiresIn: "1d",
-    });
+    const token = jwt.sign(
+      { userId: existingUser._id },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: "1d",
+      }
+    );
     return res.status(201).json({ message: "Login successful", token: token });
   } catch (err) {
     console.log("Error signing in: ", err);
