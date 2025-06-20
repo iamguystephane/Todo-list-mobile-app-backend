@@ -44,7 +44,11 @@ router.post("/auth/login", async (req, res) => {
         expiresIn: "1d",
       }
     );
-    return res.status(201).json({ message: "Login successful", token: token });
+
+    const { password, __v, ...userData } = existingUser.toObject();
+    return res
+      .status(201)
+      .json({ message: "Login successful", token: token, user: userData });
   } catch (err) {
     console.log("Error signing in: ", err);
     return res.status(501).json({ message: "Internal server error" });
